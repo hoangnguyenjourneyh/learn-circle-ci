@@ -19,7 +19,7 @@ if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "production" ]] 
   echo "aws_access_key_id = ${AWS_ENV_USER_ACCESS_KEY_ID}" >> ~/.aws/credentials
   echo "aws_secret_access_key = ${AWS_ENV_USER_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
 
-  aws secretsmanager get-secret-value --secret-id ${AWS_ENV_SECRET_NAME} --query SecretString --output text --profile=environment > .env.json
+  aws secretsmanager get-secret-value --secret-id ${AWS_ENV_SECRET_NAME} --query SecretString --region=ap-southeast-2 --output text --profile=environment > .env.json
   ./scripts/json2env.sh .env.json .env
 
   cat .env
