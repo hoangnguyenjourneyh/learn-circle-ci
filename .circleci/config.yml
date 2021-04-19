@@ -23,6 +23,12 @@ jobs:
           paths:
             - node_modules/
       - run:
+          name: Install AWS CLI
+          command: curl -O https://bootstrap.pypa.io/get-pip.py && sudo python2.7 get-pip.py && sudo pip install awscli
+      - run:
+          name: Install jq
+          command: sudo apt-get install jq
+      - run:
           name: Copy Environment File
           command: ./script/encode_env.sh
 workflows:
