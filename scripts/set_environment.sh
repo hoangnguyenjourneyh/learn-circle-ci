@@ -2,4 +2,4 @@
 
 set -e
 
-export export AWS_ENV_SECRET_NAME='web/test/tutorkoala'
+export export AWS_ENV_SECRET_NAME='tutorkoala/web/test'
