@@ -1,0 +1,1 @@
+echo "current branch: $CIRCLE_BRANCH";

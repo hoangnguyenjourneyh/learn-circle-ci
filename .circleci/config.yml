@@ -1,46 +1,32 @@
 version: 2
 jobs:
-  one:
+  build_web_api:
     docker:
-      - image: circleci/ruby:2.4.1
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      - image: circleci/node:14.16
     steps:
+      - setup_remote_docker:
+        docker_layer_caching: false
       - checkout
-      - run: echo "A first hello"
-      - run: mkdir -p my_workspace
-      - run: echo "Trying out workspaces" > my_workspace/echo-output
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory
-          root: my_workspace
-          # Must be relative path from root
-          paths:
-            - echo-output      
-  two:
-    docker:
-      - image: circleci/ruby:2.4.1
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - checkout
-      - run: echo "A more familiar hi"  
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: my_workspace
-
-      - run: |
-          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
-            echo "It worked!";
-          else
-            echo "Nope!"; exit 1
-          fi
+      - restore_cache:
+        name: Restore npm Package Cache
+        keys:
+          - npm-packages-{{ .Branch }}-{{ checksum "package.json" }}
+          - npm-packages-{{ .Branch }}
+          - npm-packages-master
+          - npm-packages-
+      - run:
+        name: Install NPM
+        command: npm install
+      - save_cache:
+        name: Save NPM Packages Cache
+        key: npm-packages-{{ .Branch }}-{{ checksum "package.json" }}
+        paths:
+          - node_modules/
+      - run:
+        name: Copy Environment File
+        command: ./script/encode_env.sh
 workflows:
   version: 2
-  one_and_two:
+  build_server:
     jobs:
-      - one
-      - two:
-          requires:
-            - one
+      - build_web_api
