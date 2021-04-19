@@ -24,7 +24,10 @@ jobs:
             - node_modules/
       - run:
           name: Install AWS CLI
-          command: curl -O https://bootstrap.pypa.io/get-pip.py && sudo python2.7 get-pip.py && sudo pip install awscli
+          command: 
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" &&
+            unzip awscli-bundle.zip && sudo ./awscli-bundle/install -i /usr/local/aws -b
+            /usr/local/bin/aws
       - run:
           name: Install jq
           command: sudo apt-get install jq
