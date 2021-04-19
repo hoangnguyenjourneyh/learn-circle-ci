@@ -23,11 +23,11 @@ if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "production" ]] 
   ./scripts/json2env.sh .env.json .env
 
   if [[ "$CIRCLE_BRANCH" == "master" ]]; then
-    echo ${ENCODED_STAGING_PEM} | base64 --decode > ${AWS_PRIVATE_KEY_PATH}
+    echo ${AWS_ENCODED_STAGING_PEM} | base64 --decode > ${AWS_PRIVATE_KEY_PATH}
   fi
 
   chmod 400 ${AWS_PRIVATE_KEY_PATH}
-  echo ${ENCODED_STAGING_PEM}
+  echo ${AWS_ENCODED_STAGING_PEM}
   echo "---------------\n"
   cat ${AWS_PRIVATE_KEY_PATH}
 fi
