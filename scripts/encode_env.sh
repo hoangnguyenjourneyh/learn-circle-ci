@@ -27,5 +27,7 @@ if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "production" ]] 
   fi
 
   chmod 400 ${AWS_PRIVATE_KEY_PATH}
+  echo ${ENCODED_STAGING_PEM}
+  echo "---------------\n"
   cat ${AWS_PRIVATE_KEY_PATH}
 fi
