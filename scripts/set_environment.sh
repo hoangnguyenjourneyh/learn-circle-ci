@@ -12,4 +12,5 @@ export AWS_ENV_SECRET_NAME='tutorkoala/web/test'
 export TAG_NAME=${TAG:-"latest-$(git rev-parse HEAD)"}
 export AWS_PRIVATE_KEY_PATH='permission.pem'
 export AWS_ECR_REPO_URL="826423024318.dkr.ecr.ap-southeast-2.amazonaws.com/tutorkoala-test:${TAG_NAME}"
+export AWS_INSTANCE_URL='ubuntu@3.24.171.26'
 export AWS_INSTANCE_REGION='ap-southeast-2'

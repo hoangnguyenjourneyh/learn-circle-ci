@@ -22,13 +22,10 @@ if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "feature/initiat
   aws secretsmanager get-secret-value --secret-id ${AWS_ENV_SECRET_NAME} --query SecretString --region=ap-southeast-2 --output text --profile=environment > .env.json
   ./scripts/json2env.sh .env.json .env
 
-  if [[ "$CIRCLE_BRANCH" == "master" ]]; then
+  if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "feature/initiate_tutorkoala" ]] ; then
     echo ${AWS_ENCODED_STAGING_PEM} | base64 --decode > ${AWS_PRIVATE_KEY_PATH}
   fi
   
-  cat ~/.aws/config
-  echo '----------------\n'
-  cat ~/.aws/credentials
   chmod 400 ${AWS_PRIVATE_KEY_PATH}
 
 fi
