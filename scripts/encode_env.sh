@@ -8,7 +8,7 @@ echo "npm-debug.log\nyarn-error.log" > .dockerignore
 export AWS_PRIVATE_KEY_PATH='permission.pem'
 cp Dockerfile_ci Dockerfile
 
-if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "production" ]] ; then
+if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "feature/initiate_tutorkoala" ]] ; then
   # todo: set up aws credentials for getting the env file
   mkdir ~/.aws
   touch ~/.aws/config
@@ -25,6 +25,7 @@ if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "production" ]] 
   if [[ "$CIRCLE_BRANCH" == "master" ]]; then
     echo ${AWS_ENCODED_STAGING_PEM} | base64 --decode > ${AWS_PRIVATE_KEY_PATH}
   fi
+  
   cat ~/.aws/config
   echo '----------------\n'
   cat ~/.aws/credentials
