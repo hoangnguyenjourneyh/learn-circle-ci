@@ -34,6 +34,12 @@ jobs:
       - run:
           name: Copy Environment File
           command: ./scripts/encode_env.sh
+      - run:
+          name: Build the project
+          command: CI=false npm run build
+      - run:
+          name: Deploy the image
+          command: ./scripts/deploy.sh
 workflows:
   version: 2
   build_server:
