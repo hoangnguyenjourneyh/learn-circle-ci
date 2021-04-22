@@ -15,4 +15,6 @@ docker push ${AWS_ECR_REPO_URL}
 
 echo -e "${COLOR}::::ssh and deploy::::${NC}"
 
-ssh -o StrictHostKeyChecking=no -i "${AWS_PRIVATE_KEY_PATH}" ${AWS_INSTANCE_URL} "IMAGE_URL=${AWS_ECR_REPO_URL}"
+ssh -o StrictHostKeyChecking=no -i "${AWS_PRIVATE_KEY_PATH}" ${AWS_INSTANCE_URL} "IMAGE_URL=${AWS_ECR_REPO_URL} ./deploy.sh"
+
+echo "SSH: ${AWS_PRIVATE_KEY_PATH} ${AWS_INSTANCE_URL}"
