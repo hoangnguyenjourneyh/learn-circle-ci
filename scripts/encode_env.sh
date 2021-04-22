@@ -4,6 +4,7 @@ set -e
 
 source ./scripts/set_environment.sh
 
+echo "Current branch: ${CIRCLE_BRANCH}"
 echo "npm-debug.log\nyarn-error.log" > .dockerignore
 export AWS_PRIVATE_KEY_PATH='permission.pem'
 cp Dockerfile_ci Dockerfile
