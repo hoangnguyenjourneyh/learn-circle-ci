@@ -10,11 +10,14 @@ aws ecr get-login-password --region ${AWS_INSTANCE_REGION} | docker login --user
 
 docker build -t ${AWS_ECR_REPO_URL} .
 
+ls
+
 echo -e "${COLOR}::::pushing to aws repo::::${NC}"
-docker push ${AWS_ECR_REPO_URL}
+echo "$(ls)"
+# docker push ${AWS_ECR_REPO_URL}
 
 echo -e "${COLOR}::::ssh and deploy::::${NC}"
 
-ssh -o StrictHostKeyChecking=no -i "${AWS_PRIVATE_KEY_PATH}" ${AWS_INSTANCE_URL} "IMAGE_URL=${AWS_ECR_REPO_URL} ./deploy.sh"
+# ssh -o StrictHostKeyChecking=no -i "${AWS_PRIVATE_KEY_PATH}" ${AWS_INSTANCE_URL} "IMAGE_URL=${AWS_ECR_REPO_URL} ./deploy.sh"
 
 echo "SSH: ${AWS_PRIVATE_KEY_PATH} ${AWS_INSTANCE_URL} DONE"
